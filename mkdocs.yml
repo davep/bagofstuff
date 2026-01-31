@@ -8,6 +8,7 @@ nav:
   - API:
       - library-contents/itertools.md
       - library-contents/pipe.md
+  - Change Log: changelog.md
 
 watch:
   - src/bagofstuff
