@@ -9,6 +9,7 @@ nav:
       - library-contents/itertools.md
       - library-contents/pipe.md
   - Change Log: changelog.md
+  - License: license.md
 
 watch:
   - src/bagofstuff
