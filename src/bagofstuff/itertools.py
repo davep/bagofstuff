@@ -2,7 +2,7 @@
 
 ##############################################################################
 # Python imports.
-from itertools import chain
+from collections import deque
 from typing import Iterable, Iterator, Literal
 
 ##############################################################################
@@ -28,9 +28,11 @@ def starting_at[T](
     Returns:
         An iterable of all the items starting at the given point.
     """
-    items = list(reversed(list(items)) if direction == "backward" else items)
-    start_at = (len(items) - start_at - 1) if direction == "backward" else start_at
-    return chain(items[start_at:], items[:start_at])
+    items = deque(items)
+    if direction == "backward":
+        items.reverse()
+    items.rotate(-start_at if direction == "forward" else (start_at + 1))
+    return iter(items)
 
 
 ### itertools.py ends here
