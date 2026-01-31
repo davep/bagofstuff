@@ -47,7 +47,7 @@ plugins:
 theme:
   name: material
   icon:
-    logo: fontawesome/solid/file
+    logo: fontawesome/solid/person-walking-luggage
   features:
     - navigation.tabs
     - navigation.indexes
