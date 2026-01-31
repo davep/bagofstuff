@@ -12,3 +12,6 @@ wheels/
 # Test coverage
 .coverage
 .coverage_report/
+
+# Docs
+site/
