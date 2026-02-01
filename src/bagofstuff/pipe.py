@@ -85,10 +85,9 @@ class Pipe[TInitial, TResult]:
         Returns:
             The result of the pipeline.
         """
-        if not self._functions:
+        if not (functions := self._functions):
             raise TypeError("Empty Pipe called")
-        functions = self._functions
-        if (seed := initial) == self._NoArgument:
+        if (seed := initial) is self._NoArgument:
             seed = functions[0]()
             functions = functions[1:]
         return cast(
