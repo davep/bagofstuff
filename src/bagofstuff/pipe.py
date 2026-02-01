@@ -7,17 +7,7 @@ from __future__ import annotations
 ##############################################################################
 # Python imports.
 from functools import reduce
-from typing import Any, Callable, cast
-
-
-##############################################################################
-class NoArgument:
-    """Type that marks that there is no initial argument."""
-
-
-##############################################################################
-_NoArgument = NoArgument()
-"""Sentinel value to say there is no argument."""
+from typing import Any, Callable, Final, cast
 
 
 ##############################################################################
@@ -53,6 +43,12 @@ class Pipe[TInitial, TResult]:
         ```
     """
 
+    class Nullary:
+        """Type that marks that there is no initial argument."""
+
+    _NoArgument: Final[Nullary] = Nullary()
+    """Sentinel value to say there is no argument."""
+
     def __init__(self, *functions: Callable[..., Any]) -> None:
         """Initialise the pipeline.
 
@@ -75,7 +71,7 @@ class Pipe[TInitial, TResult]:
         """
         return Pipe[TInitial, TResult](*self._functions, function)
 
-    def __call__(self, initial: TInitial | NoArgument = _NoArgument) -> TResult:
+    def __call__(self, initial: TInitial | Nullary = _NoArgument) -> TResult:
         """Execute the pipeline.
 
         Given an initial value, it is passed to the first function in the
@@ -91,9 +87,9 @@ class Pipe[TInitial, TResult]:
         """
         if not self._functions:
             raise TypeError("Empty Pipe called")
-        seed: TInitial | NoArgument = initial
+        seed: TInitial | Pipe.Nullary = initial
         functions = self._functions
-        if seed == _NoArgument:
+        if seed == self._NoArgument:
             seed = cast(Callable[[], Any], functions[0])()
             functions = functions[1:]
         return cast(

@@ -11,7 +11,7 @@ from pytest import raises
 
 ##############################################################################
 # Local imports.
-from bagofstuff.pipe import NoArgument, Pipe
+from bagofstuff.pipe import Pipe
 
 
 ##############################################################################
@@ -56,7 +56,7 @@ def test_pipe_with_no_initial_argument() -> None:
     def plus_one(value: int) -> int:
         return value + 1
 
-    assert (Pipe[NoArgument, int](one, plus_one) | plus_one)() == 3
+    assert (Pipe[Pipe.Nullary, int](one, plus_one) | plus_one)() == 3
 
 
 ##############################################################################
