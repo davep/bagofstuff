@@ -40,7 +40,7 @@ def test_starting_at(
     direction: Direction,
     expected: list[Any],
 ) -> None:
-    """`rotate_around` should work as expected."""
+    """`starting_at` should work as expected."""
     assert list(starting_at(initial, rotate_at, direction)) == expected
 
 
