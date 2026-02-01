@@ -71,7 +71,7 @@ class Pipe[TInitial, TResult]:
         """
         return Pipe[TInitial, TResult](*self._functions, function)
 
-    def __call__(self, initial: TInitial | Nullary = _NoArgument) -> TResult:
+    def __call__(self, initial: TInitial = _NoArgument) -> TResult:
         """Execute the pipeline.
 
         Given an initial value, it is passed to the first function in the

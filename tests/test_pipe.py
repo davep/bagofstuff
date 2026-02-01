@@ -63,7 +63,7 @@ def test_pipe_with_no_initial_argument() -> None:
 def test_empty_pipeline() -> None:
     """Calling an empty Pipe should result in an error."""
     with raises(TypeError):
-        _ = Pipe[None, None]()()
+        _ = Pipe[Pipe.Nullary, None]()()
 
 
 ### test_pipe.py ends here
