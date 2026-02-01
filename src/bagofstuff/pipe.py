@@ -87,10 +87,9 @@ class Pipe[TInitial, TResult]:
         """
         if not self._functions:
             raise TypeError("Empty Pipe called")
-        seed: TInitial | Pipe.Nullary = initial
         functions = self._functions
-        if seed == self._NoArgument:
-            seed = cast(Callable[[], Any], functions[0])()
+        if (seed := initial) == self._NoArgument:
+            seed = functions[0]()
             functions = functions[1:]
         return cast(
             TResult,
