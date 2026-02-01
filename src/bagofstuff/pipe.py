@@ -7,7 +7,7 @@ from __future__ import annotations
 ##############################################################################
 # Python imports.
 from functools import reduce
-from typing import Any, Callable, cast
+from typing import Any, Callable, Final, cast
 
 
 ##############################################################################
@@ -43,7 +43,13 @@ class Pipe[TInitial, TResult]:
         ```
     """
 
-    def __init__(self, *functions: Callable[[Any], Any]) -> None:
+    class Nullary:
+        """Type that marks that there is no initial argument."""
+
+    _NoArgument: Final[Nullary] = Nullary()
+    """Sentinel value to say there is no argument."""
+
+    def __init__(self, *functions: Callable[..., Any]) -> None:
         """Initialise the pipeline.
 
         Args:
@@ -65,7 +71,7 @@ class Pipe[TInitial, TResult]:
         """
         return Pipe[TInitial, TResult](*self._functions, function)
 
-    def __call__(self, initial: TInitial) -> TResult:
+    def __call__(self, initial: TInitial | Nullary = _NoArgument) -> TResult:
         """Execute the pipeline.
 
         Given an initial value, it is passed to the first function in the
@@ -79,14 +85,31 @@ class Pipe[TInitial, TResult]:
         Returns:
             The result of the pipeline.
         """
+        if not (functions := self._functions):
+            raise TypeError("Empty Pipe called")
+        if (seed := initial) is self._NoArgument:
+            seed = functions[0]()
+            functions = functions[1:]
         return cast(
             TResult,
             reduce(
                 lambda value, function: function(value),
-                self._functions,
-                initial,
+                functions,
+                seed,
             ),
         )
+
+    def __repr__(self) -> str:
+        """Represent the pipeline.
+
+        Returns:
+            A string representation of the pipeline.
+        """
+        pipeline = (
+            " | ".join(function.__qualname__ for function in self._functions)
+            or "<EMPTY>"
+        )
+        return f"<{self.__class__.__name__}: {pipeline}>"
 
 
 ### pipe.py ends here
