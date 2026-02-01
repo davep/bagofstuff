@@ -1,6 +1,6 @@
 [project]
 name = "bagofstuff"
-version = "0.0.1"
+version = "0.1.0"
 description = "davep's general Python utility library"
 authors = [
     { name = "Dave Pearson", email = "davep@davep.org" }

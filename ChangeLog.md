@@ -1,8 +1,8 @@
 # BagOfStuff ChangeLog
 
-## Unreleased
+## v0.1.0
 
-**Released: WiP**
+**Released: 2026-02-01**
 
 - `Pipe` can now start with zero arguments.
   ([#5](https://github.com/davep/bagofstuff/pull/5))
