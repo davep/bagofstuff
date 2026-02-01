@@ -99,5 +99,17 @@ class Pipe[TInitial, TResult]:
             ),
         )
 
+    def __repr__(self) -> str:
+        """Represent the pipeline.
+
+        Returns:
+            A string representation of the pipeline.
+        """
+        pipeline = (
+            " | ".join(function.__qualname__ for function in self._functions)
+            or "<EMPTY>"
+        )
+        return f"<{self.__class__.__name__}: {pipeline}>"
+
 
 ### pipe.py ends here
