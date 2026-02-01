@@ -4,6 +4,7 @@
 # Python imports.
 from functools import partial
 from operator import add
+from typing import Any
 
 ##############################################################################
 # Pytest imports.
@@ -76,7 +77,7 @@ def test_empty_pipeline() -> None:
         (Pipe[int, str](str, str.lower), "<Pipe: str | str.lower>"),
     ),
 )
-def test_pipe_repr(pipe: Pipe, expected_repr: str) -> None:
+def test_pipe_repr(pipe: Pipe[Any, Any], expected_repr: str) -> None:
     """The repr of a `Pipe` should be useful."""
     assert repr(pipe) == expected_repr
 
