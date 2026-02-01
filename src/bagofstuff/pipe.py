@@ -11,6 +11,16 @@ from typing import Any, Callable, cast
 
 
 ##############################################################################
+class NoArgument:
+    """Type that marks that there is no initial argument."""
+
+
+##############################################################################
+_NoArgument = NoArgument()
+"""Sentinel value to say there is no argument."""
+
+
+##############################################################################
 class Pipe[TInitial, TResult]:
     """A class that provides a simple function pipeline.
 
@@ -43,7 +53,7 @@ class Pipe[TInitial, TResult]:
         ```
     """
 
-    def __init__(self, *functions: Callable[[Any], Any]) -> None:
+    def __init__(self, *functions: Callable[..., Any]) -> None:
         """Initialise the pipeline.
 
         Args:
@@ -65,7 +75,7 @@ class Pipe[TInitial, TResult]:
         """
         return Pipe[TInitial, TResult](*self._functions, function)
 
-    def __call__(self, initial: TInitial) -> TResult:
+    def __call__(self, initial: TInitial | NoArgument = _NoArgument) -> TResult:
         """Execute the pipeline.
 
         Given an initial value, it is passed to the first function in the
@@ -79,12 +89,19 @@ class Pipe[TInitial, TResult]:
         Returns:
             The result of the pipeline.
         """
+        if not self._functions:
+            raise TypeError("Empty Pipe called")
+        seed: TInitial | NoArgument = initial
+        functions = self._functions
+        if seed == _NoArgument:
+            seed = cast(Callable[[], Any], functions[0])()
+            functions = functions[1:]
         return cast(
             TResult,
             reduce(
                 lambda value, function: function(value),
-                self._functions,
-                initial,
+                functions,
+                seed,
             ),
         )
 
