@@ -6,8 +6,9 @@ from __future__ import annotations
 
 ##############################################################################
 # Python imports.
+from collections.abc import Callable
 from functools import reduce
-from typing import Any, Callable, Final, cast
+from typing import Any, Final, cast
 
 
 ##############################################################################
