@@ -3,7 +3,8 @@
 ##############################################################################
 # Python imports.
 from collections import deque
-from typing import Iterable, Iterator, Literal
+from collections.abc import Iterable, Iterator
+from typing import Literal
 
 ##############################################################################
 type Direction = Literal["forward", "backward"]
