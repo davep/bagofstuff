@@ -1,8 +1,8 @@
 # BagOfStuff ChangeLog
 
-## Unreleased
+## v0.2.0
 
-**Released: WiP**
+**Released: 2026-02-06**
 
 - Added `url_tools.looks_webish`.
   ([#9](https://github.com/davep/bagofstuff/pull/9))
