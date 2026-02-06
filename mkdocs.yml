@@ -8,6 +8,7 @@ nav:
   - API:
       - library-contents/itertools.md
       - library-contents/pipe.md
+      - library-contents/url_tools.md
   - Change Log: changelog.md
   - License: license.md
 
