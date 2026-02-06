@@ -1,5 +1,11 @@
 # BagOfStuff ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Added `url_tools.looks_webish`.
+
 ## v0.1.0
 
 **Released: 2026-02-01**
