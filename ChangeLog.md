@@ -1,5 +1,12 @@
 # BagOfStuff ChangeLog
 
+## Unrelased
+
+**Released: WiP**
+
+- Added `cleaners.clamp`.
+  ([#12](https://github.com/davep/bagofstuff/pull/12))
+
 ## v0.2.0
 
 **Released: 2026-02-06**
