@@ -28,8 +28,4 @@ def clamp(
     return value
 
 
-##############################################################################
-# Public API.
-__all__ = ["clamp", "TClampable"]
-
 ### cleaners.py ends here
