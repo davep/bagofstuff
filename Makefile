@@ -78,7 +78,7 @@ docs:                           # Generate the system documentation
 
 .PHONY: rtfm
 rtfm:                           # Locally read the library documentation
-	$(mkdocs) serve
+	$(mkdocs) serve --livereload
 
 .PHONY: publishdocs
 publishdocs:			# Set up the docs for publishing
