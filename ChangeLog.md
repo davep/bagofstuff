@@ -6,6 +6,12 @@
 
 - Added `cleaners.clamp`.
   ([#12](https://github.com/davep/bagofstuff/pull/12))
+- Added `history.SimpleHistory`
+  ([#14](https://github.com/davep/bagofstuff/pull/14))
+- Added `history.NavigableHistory`
+  ([#14](https://github.com/davep/bagofstuff/pull/14))
+- Added `history.RecencyHistory`
+  ([#14](https://github.com/davep/bagofstuff/pull/14))
 
 ## v0.2.0
 
