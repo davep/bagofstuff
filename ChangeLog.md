@@ -1,5 +1,12 @@
 # BagOfStuff ChangeLog
 
+## Unreleased
+
+**Released: WiP*
+
+- Added the ability to `del` from a history object.
+  ([#18](https://github.com/davep/bagofstuff/pull/18))
+
 ## v1.0.0
 
 **Released: 2026-06-23**
