@@ -6,6 +6,7 @@ nav:
   - Introduction:
       - index.md
   - API:
+      - library-contents/cache.md
       - library-contents/cleaners.md
       - library-contents/history.md
       - library-contents/itertools.md

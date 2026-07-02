@@ -26,7 +26,7 @@ uv add bagofstuff
 
 ## Using
 
-See [the API documentation](/library-contents/cleaners/) for details on
+See [the API documentation](library-contents/cache.md) for details on
 the content of the library.
 
 ## Hacking
