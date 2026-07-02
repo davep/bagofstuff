@@ -163,6 +163,12 @@ class SimpleHistory[T](Sequence[T]):
             else self._history[index]
         )
 
+    def __delitem__(self, index: int) -> None:
+        """Delete an item from the history."""
+        del self._history[index]
+        if self._current_index >= len(self):
+            self.goto_end()
+
     def __len__(self) -> int:
         """The length of the history."""
         return len(self._history)

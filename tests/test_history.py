@@ -193,4 +193,24 @@ def test_reverse_history() -> None:
     assert list(reversed(SimpleHistory[int]([1, 2]))) == [2, 1]
 
 
+##############################################################################
+def test_del_history_item() -> None:
+    """Test that deleting an item from history works."""
+    history = SimpleHistory[int]([1, 2, 3])
+    del history[1]
+    assert list(history) == [1, 3]
+    assert history.current_item == 3
+    assert history.current_location == 1
+    del history[0]
+    assert list(history) == [3]
+    assert history.current_item == 3
+    assert history.current_location == 0
+    del history[0]
+    assert list(history) == []
+    assert history.current_item is None
+    assert history.current_location is None
+    with raises(IndexError):
+        del history[0]
+
+
 ### test_navigable_history.py ends here
