@@ -1,5 +1,12 @@
 # BagOfStuff ChangeLog
 
+## Unreleased
+
+**Released: WiP*
+
+- Added a `clear` method to the history classes.
+  ([#21](https://github.com/davep/bagofstuff/pull/21))
+
 ## v1.1.0
 
 **Released: 2026-07-02*

@@ -147,6 +147,12 @@ class SimpleHistory[T](Sequence[T]):
         """
         return self._history.count(item)
 
+    def clear(self) -> Self:
+        """Clear the history."""
+        self._history.clear()
+        self._current_index = 0
+        return self
+
     if TYPE_CHECKING:
 
         @overload
