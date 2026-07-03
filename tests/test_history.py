@@ -213,4 +213,14 @@ def test_del_history_item() -> None:
         del history[0]
 
 
+##############################################################################
+def test_clear_history() -> None:
+    """Test that clearing the history works."""
+    history = SimpleHistory[int]([1, 2, 3])
+    history.clear()
+    assert list(history) == []
+    assert history.current_item is None
+    assert history.current_location is None
+
+
 ### test_navigable_history.py ends here
