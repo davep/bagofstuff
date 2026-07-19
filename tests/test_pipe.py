@@ -82,4 +82,14 @@ def test_pipe_repr(pipe: Pipe[Any, Any], expected_repr: str) -> None:
     assert repr(pipe) == expected_repr
 
 
+##############################################################################
+def test_subclass_pipe() -> None:
+    """A subclass of Pipe should work as expected."""
+
+    class MyPipe(Pipe[int, int]):
+        pass
+
+    assert (MyPipe(partial(add, 1)) | partial(add, 2))(1) == 4
+
+
 ### test_pipe.py ends here
