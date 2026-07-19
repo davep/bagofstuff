@@ -8,7 +8,7 @@ from __future__ import annotations
 # Python imports.
 from collections.abc import Callable
 from functools import reduce
-from typing import Any, Final, cast
+from typing import Any, Final, Self, cast
 
 
 ##############################################################################
@@ -59,7 +59,7 @@ class Pipe[TInitial, TResult]:
         self._functions = functions
         """The functions in the pipeline."""
 
-    def __or__(self, function: Callable[[Any], Any], /) -> Pipe[TInitial, TResult]:
+    def __or__(self, function: Callable[[Any], Any], /) -> Self:
         """Add another function to the pipeline.
 
         Example:
@@ -70,7 +70,7 @@ class Pipe[TInitial, TResult]:
             tidy |= str.strip
             ```
         """
-        return Pipe[TInitial, TResult](*self._functions, function)
+        return self.__class__(*self._functions, function)
 
     def __call__(self, initial: TInitial | Nullary = _NoArgument) -> TResult:
         """Execute the pipeline.

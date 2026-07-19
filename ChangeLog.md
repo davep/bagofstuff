@@ -1,5 +1,12 @@
 # BagOfStuff ChangeLog
 
+## v1.2.1
+
+**Released: 2026-07-19**
+
+- Improved the type hint of `Pipe.__or__`.
+  ([#23](https://github.com/davep/bagofstuff/pull/23))
+
 ## v1.2.0
 
 **Released: 2026-07-03**
