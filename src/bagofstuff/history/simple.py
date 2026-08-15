@@ -66,6 +66,17 @@ class SimpleHistory[T](Sequence[T]):
         """Can history go backward?"""
         return bool(self._current_index)
 
+    def truncate(self) -> Self:
+        """Truncate the history at the current location.
+
+        Returns:
+            Self.
+        """
+        self._history = deque(
+            list(self._history)[: self._current_index + 1], maxlen=self._history.maxlen
+        )
+        return self
+
     def backward(self) -> bool:
         """Go backward through the history.
 

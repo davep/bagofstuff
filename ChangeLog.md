@@ -1,5 +1,12 @@
 # BagOfStuff ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Added a `truncate` method to the history classes.
+  ([#24](https://github.com/davep/bagofstuff/pull/24))
+
 ## v1.2.1
 
 **Released: 2026-07-19**
