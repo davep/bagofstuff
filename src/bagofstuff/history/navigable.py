@@ -2,7 +2,6 @@
 
 ##############################################################################
 # Python imports.
-from collections import deque
 from typing import Self
 
 ##############################################################################
@@ -33,9 +32,7 @@ class NavigableHistory[T](SimpleHistory[T]):
             location is removed from the history, and the new item is placed
             at the end.
         """
-        self._history = deque(
-            list(self)[: self._current_index + 1], maxlen=self._history.maxlen
-        )
+        self.truncate()
         return super().add(item)
 
 

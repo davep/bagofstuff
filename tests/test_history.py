@@ -6,7 +6,7 @@ from pytest import raises
 
 ##############################################################################
 # Local imports.
-from bagofstuff.history import SimpleHistory
+from bagofstuff.history import NavigableHistory, SimpleHistory
 
 
 ##############################################################################
@@ -223,4 +223,28 @@ def test_clear_history() -> None:
     assert history.current_location is None
 
 
-### test_navigable_history.py ends here
+##############################################################################
+def test_truncate_history() -> None:
+    """Test that truncating the history works."""
+    history = SimpleHistory[int]([1, 2, 3])
+    assert list(history.truncate()) == [1, 2, 3]
+    assert history.current_item == 3
+    history.backward()
+    assert history.current_item == 2
+    assert list(history.truncate()) == [1, 2]
+    assert history.current_item == 2
+
+
+##############################################################################
+def test_navigable_history_add_truncates() -> None:
+    """Test that adding to a navigable history truncates the history."""
+    history = NavigableHistory[int]([1, 2, 3])
+    assert history.backward() is True
+    assert history.backward() is True
+    assert history.current_item == 1
+    history.add(4)
+    assert list(history) == [1, 4]
+    assert history.current_item == 4
+
+
+### test_history.py ends here
