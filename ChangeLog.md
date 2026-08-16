@@ -6,6 +6,8 @@
 
 - Added a `truncate` method to the history classes.
   ([#24](https://github.com/davep/bagofstuff/pull/24))
+- Added a `clone` method to the history classes.
+  ([#25](https://github.com/davep/bagofstuff/pull/25))
 
 ## v1.2.1
 

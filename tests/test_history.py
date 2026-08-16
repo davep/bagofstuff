@@ -247,4 +247,18 @@ def test_navigable_history_add_truncates() -> None:
     assert history.current_item == 4
 
 
+##############################################################################
+def test_clone() -> None:
+    """Test that cloning a history works."""
+    history = SimpleHistory[int]([1, 2, 3])
+    history.backward()
+    clone = history.clone()
+    assert list(clone) == list(history)
+    assert clone.current_item == history.current_item
+    assert clone.current_location == history.current_location
+    clone.truncate()
+    assert list(clone) == [1, 2]
+    assert list(history) == [1, 2, 3]
+
+
 ### test_history.py ends here

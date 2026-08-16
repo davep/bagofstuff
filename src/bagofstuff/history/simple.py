@@ -9,11 +9,15 @@ from __future__ import annotations
 from collections import deque
 from collections.abc import Iterator, Sequence
 from sys import maxsize
-from typing import TYPE_CHECKING, Self, overload
+from typing import TYPE_CHECKING, Final, Self, overload
 
 ##############################################################################
 # Local imports.
 from ..cleaners import clamp
+
+##############################################################################
+_DEFAULT_MAX_LENGTH: Final[int] = 500
+"""The default maximum length for the history."""
 
 
 ##############################################################################
@@ -25,7 +29,7 @@ class SimpleHistory[T](Sequence[T]):
     """
 
     def __init__(
-        self, history: Sequence[T] | None = None, max_length: int = 500
+        self, history: Sequence[T] | None = None, max_length: int = _DEFAULT_MAX_LENGTH
     ) -> None:
         """Initialise the history object.
 
@@ -65,6 +69,20 @@ class SimpleHistory[T](Sequence[T]):
     def can_go_backward(self) -> bool:
         """Can history go backward?"""
         return bool(self._current_index)
+
+    def clone(self) -> Self:
+        """Clone the history.
+
+        Returns:
+            A clone of the history.
+
+        Note:
+            The clone is a new instance of the history with the same items and
+            current location.
+        """
+        return self.__class__(
+            list(self._history), max_length=self._history.maxlen or _DEFAULT_MAX_LENGTH
+        ).goto(self._current_index)
 
     def truncate(self) -> Self:
         """Truncate the history at the current location.
