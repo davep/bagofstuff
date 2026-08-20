@@ -276,6 +276,8 @@ def test_del_history_item() -> None:
     assert history.current_location is None
     with raises(IndexError):
         del history[0]
+    with raises(NotImplementedError):
+        del history[0:1]
 
 
 ##############################################################################
@@ -324,6 +326,33 @@ def test_clone() -> None:
     clone.truncate()
     assert list(clone) == [1, 2]
     assert list(history) == [1, 2, 3]
+
+
+##############################################################################
+def test_set_item() -> None:
+    """Test that setting an item in the history works."""
+    history = SimpleHistory[int]([1, 2, 3])
+    history[1] = 4
+    assert list(history) == [1, 4, 3]
+    assert history.current_item == 3
+    assert history.current_location == 2
+
+
+##############################################################################
+def test_set_item_to_slice() -> None:
+    """Test that setting a slice of items in the history works."""
+    history = SimpleHistory[int]([1, 2, 3, 4, 5])
+    with raises(NotImplementedError):
+        history[1:4] = [6, 7]
+    with raises(NotImplementedError):
+        history[1] = [6, 7]  # type: ignore
+
+
+def test_insert() -> None:
+    """Test that inserting an item into the history raises NotImplementedError."""
+    history = SimpleHistory[int]([1, 2, 3])
+    with raises(NotImplementedError):
+        history.insert(1, 4)
 
 
 ### test_history.py ends here

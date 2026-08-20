@@ -7,7 +7,7 @@ from __future__ import annotations
 ##############################################################################
 # Python imports.
 from collections import deque
-from collections.abc import Iterable, Iterator, Sequence
+from collections.abc import Iterable, Iterator, MutableSequence
 from sys import maxsize
 from typing import TYPE_CHECKING, Final, Self, overload
 
@@ -21,7 +21,7 @@ _DEFAULT_MAX_LENGTH: Final[int] = 500
 
 
 ##############################################################################
-class SimpleHistory[T](Sequence[T]):
+class SimpleHistory[T](MutableSequence[T]):
     """A history class that implements a simple linear history.
 
     Adding items to the list simple grows the list until the maximum length
@@ -149,6 +149,18 @@ class SimpleHistory[T](Sequence[T]):
         self._history.append(item)
         return self.goto_end()
 
+    def insert(self, index: int, item: T) -> None:
+        """Insert an item into the history.
+
+        Args:
+            index: The index to insert the item at.
+            item: The item to insert.
+
+        Note:
+            This method is not supported for this history class.
+        """
+        raise NotImplementedError("Inserting items into history is not supported.")
+
     def add_or_replace(self, item: T) -> Self:
         """Add an item to the history, or replace the current item.
 
@@ -198,11 +210,10 @@ class SimpleHistory[T](Sequence[T]):
         """
         return self._history.count(item)
 
-    def clear(self) -> Self:
+    def clear(self) -> None:
         """Clear the history."""
         self._history.clear()
         self._current_index = 0
-        return self
 
     if TYPE_CHECKING:
 
@@ -220,8 +231,30 @@ class SimpleHistory[T](Sequence[T]):
             else self._history[index]
         )
 
-    def __delitem__(self, index: int) -> None:
+    if TYPE_CHECKING:
+
+        @overload
+        def __setitem__(self, index: int, value: T) -> None: ...
+
+        @overload
+        def __setitem__(self, index: slice[int | None], value: Iterable[T]) -> None: ...
+
+    def __setitem__(
+        self, index: int | slice[int | None], value: T | Iterable[T]
+    ) -> None:
+        """Set an item in the history."""
+        if isinstance(index, slice):
+            raise NotImplementedError("Setting slices in history is not supported.")
+        if isinstance(value, Iterable):
+            raise NotImplementedError(
+                "Setting an iterable in history is not supported."
+            )
+        self._history[index] = value
+
+    def __delitem__(self, index: int | slice[int | None]) -> None:
         """Delete an item from the history."""
+        if isinstance(index, slice):
+            raise NotImplementedError("Deleting slices from history is not supported.")
         del self._history[index]
         if self._current_index >= len(self):
             self.goto_end()
