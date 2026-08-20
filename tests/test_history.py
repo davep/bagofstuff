@@ -348,6 +348,7 @@ def test_set_item_to_slice() -> None:
         history[1] = [6, 7]  # type: ignore
 
 
+##############################################################################
 def test_insert() -> None:
     """Test that inserting an item into the history raises NotImplementedError."""
     history = SimpleHistory[int]([1, 2, 3])
