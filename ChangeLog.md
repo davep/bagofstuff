@@ -6,6 +6,11 @@
 
 - Added a `add_or_replace` to the history classes.
   ([#27](https://github.com/davep/bagofstuff/pull/27))
+- History classes are now based on `MutableSequence` rather than just
+  `Sequence`. ([#28](https://github.com/davep/bagofstuff/pull/28))
+- BREAKING CHANGE: The `clear` method of the history classes no longer
+  returns `self` (to confirm with Python's `MutableSequence` interface).
+  ([#28](https://github.com/davep/bagofstuff/pull/28))
 
 ## v1.3.0
 
