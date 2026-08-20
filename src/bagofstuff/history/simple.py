@@ -149,6 +149,28 @@ class SimpleHistory[T](Sequence[T]):
         self._history.append(item)
         return self.goto_end()
 
+    def add_or_replace(self, item: T) -> Self:
+        """Add an item to the history, or replace the current item.
+
+        Args:
+            item: The item to add or replace.
+
+        Returns:
+            Self.
+
+        Note:
+            If we have no current item, or the current item's equality test
+            with the new item fails, we add the new item to the history.
+            Otherwise, we replace the current item with the new item.
+
+            This method is especially useful when working with values whose
+            equality test is not based on some primary property.
+        """
+        if self.current_item is None or self.current_item != item:
+            return self.add(item)
+        self._history[self._current_index] = item
+        return self
+
     def index(self, item: T, start: int = 0, stop: int = maxsize) -> int:
         """Return the index of the given history item.
 

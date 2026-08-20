@@ -1,5 +1,12 @@
 # BagOfStuff ChangeLog
 
+## Unreleased
+
+**Released: WiP**
+
+- Added a `add_or_replace` to the history classes.
+  ([#27](https://github.com/davep/bagofstuff/pull/27))
+
 ## v1.3.0
 
 **Released: 2026-08-16**
