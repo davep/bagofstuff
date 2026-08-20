@@ -1,6 +1,10 @@
 """Unit tests for the navigable history class."""
 
 ##############################################################################
+# Python imports.
+from dataclasses import dataclass
+
+##############################################################################
 # Pytest imports.
 from pytest import raises
 
@@ -85,6 +89,67 @@ def test_add_to_non_empty() -> None:
     history.add(4)
     assert history.current_item == 4
     assert history.current_location == 3
+    assert history.can_go_backward is True
+    assert history.can_go_forward is False
+
+
+##############################################################################
+@dataclass
+class HistoryItem:
+    primary: str
+    secondary: int
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, HistoryItem):
+            return self.primary == other.primary
+        return NotImplemented
+
+
+##############################################################################
+def test_add_or_replace_to_empty() -> None:
+    """Test that adding an item to an empty history sets it as the current item."""
+    history = SimpleHistory[HistoryItem]()
+    assert history.current_item is None
+    assert history.current_location is None
+    assert history.can_go_backward is False
+    assert history.can_go_forward is False
+    history.add_or_replace(HistoryItem("a", 1))
+    assert history.current_item == HistoryItem("a", 1)
+    assert history.current_location == 0
+    assert history.can_go_backward is False
+    assert history.can_go_forward is False
+
+
+##############################################################################
+def test_add_or_replace_to_non_empty() -> None:
+    """Test that adding an item to a non-empty history sets it as the current item."""
+    history = SimpleHistory[HistoryItem]([HistoryItem("a", 1), HistoryItem("b", 2)])
+    assert history.current_item == HistoryItem("b", 2)
+    assert history.current_location == 1
+    assert history.can_go_backward is True
+    assert history.can_go_forward is False
+    history.add_or_replace(HistoryItem("c", 3))
+    assert history.current_item == HistoryItem("c", 3)
+    assert history.current_location == 2
+    assert history.can_go_backward is True
+    assert history.can_go_forward is False
+
+
+##############################################################################
+def test_add_or_replace_replaces_current() -> None:
+    """Test that adding an item to a non-empty history replaces the current item if equal."""
+    history = SimpleHistory[HistoryItem]([HistoryItem("a", 1), HistoryItem("b", 2)])
+    assert history.current_item is not None
+    assert history.current_item.primary == "b"
+    assert history.current_item.secondary == 2
+    assert history.current_location == 1
+    assert history.can_go_backward is True
+    assert history.can_go_forward is False
+    history.add_or_replace(HistoryItem("b", 3))
+    assert history.current_item is not None
+    assert history.current_item.primary == "b"
+    assert history.current_item.secondary == 3
+    assert history.current_location == 1
     assert history.can_go_backward is True
     assert history.can_go_forward is False
 
