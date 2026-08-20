@@ -1059,7 +1059,7 @@ except that:</p>
 
 <span class="n">shortest_len</span> <span class="o">=</span> <span class="n">Pipe</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">](</span><span class="nb">str</span><span class="o">.</span><span class="n">trim</span><span class="p">,</span> <span class="nb">len</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">shortest_len</span><span class="p">(</span><span class="s2">&quot;      this is padded     &quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shortest_len</span><span class="p">(</span><span class="s2">"      this is padded     "</span><span class="p">))</span>
 </code></pre></div>
 <p>As well as passing a list of functions when creating the pipe, they
 can also be added afterwards:</p>
@@ -1069,7 +1069,7 @@ can also be added afterwards:</p>
 <span class="n">shortest_len</span> <span class="o">|=</span> <span class="nb">str</span><span class="o">.</span><span class="n">trim</span>
 <span class="n">shortest_len</span> <span class="o">|=</span> <span class="nb">len</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">shortest_len</span><span class="p">(</span><span class="s2">&quot;      this is padded     &quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shortest_len</span><span class="p">(</span><span class="s2">"      this is padded     "</span><span class="p">))</span>
 </code></pre></div>
 </details>
 
