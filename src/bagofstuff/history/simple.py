@@ -7,7 +7,7 @@ from __future__ import annotations
 ##############################################################################
 # Python imports.
 from collections import deque
-from collections.abc import Iterator, Sequence
+from collections.abc import Iterable, Iterator, Sequence
 from sys import maxsize
 from typing import TYPE_CHECKING, Final, Self, overload
 
@@ -29,15 +29,15 @@ class SimpleHistory[T](Sequence[T]):
     """
 
     def __init__(
-        self, history: Sequence[T] | None = None, max_length: int = _DEFAULT_MAX_LENGTH
+        self, history: Iterable[T] | None = None, max_length: int = _DEFAULT_MAX_LENGTH
     ) -> None:
         """Initialise the history object.
 
         Args:
-            history: Set to the given history.
+            history: Optional starting point for the history.
             max_length: Optional maximum length for the history.
         """
-        self._history: deque[T] = deque(history or [], maxlen=max_length)
+        self._history = deque[T](list(history or []), maxlen=max_length)
         """The history."""
         self._current_index: int = max(len(self._history) - 1, 0)
         """The current index in the history."""
